@@ -1,5 +1,8 @@
 import math
 import Queue
+import matplotlib.pyplot as plt
+import numpy as np
+from mpl_toolkits.mplot3d import Axes3D, axes3d
 
 class Node:
 
@@ -98,16 +101,34 @@ def calc_obstacle_map(ox, oy, reso, vr):
     # obstacle map generation
     obmap = [[False for i in range(int(ywidth))] for i in range(int(xwidth))]
 
+    # ###########
+    # plot_x = []
+    # plot_y = []
+    # plot_not_x = []
+    # plot_not_y = []
+    # ###########
+
     for ix in range(int(xwidth)):
         x = ix + minx
         for iy in range(int(ywidth)):
             y = iy + miny
-            #  print(x, y)
             for iox, ioy in zip(ox, oy):
                 d = math.sqrt((iox - x)**2 + (ioy - y)**2)
                 if d <= vr / reso:
                     #print ix,iy
                     obmap[ix][iy] = True
+                #     plot_x.append(ix)######################################
+                #     plot_y.append(iy)######################################
+                # else:######################################
+                #     plot_not_x.append(ix)######################################
+                #     plot_not_y.append(iy)######################################
+
+    # plt.figure("MAP")
+    # plt.plot(plot_x, plot_y, 'bo')########################################
+    # #plt.plot(plot_not_x, plot_not_y, 'ro')########################################
+    # plt.axis((-20, 30, -20, 30))###########################################
+    # plt.show()
+
 
     return obmap, minx, miny, maxx, maxy, xwidth, ywidth
 

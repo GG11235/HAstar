@@ -112,6 +112,10 @@ def calc_hybrid_astar_path(sx , sy , syaw , gx , gy , gyaw ,  ox , oy , xyreso ,
     global tox,toy
     ox, oy = ox[:], oy[:]
     tox, toy = ox[:], oy[:]
+    # plt.figure("Plot of obstacles")########################################
+    # plt.plot(ox, oy, 'bo')########################################
+    # plt.axis((-27, 27, -27, 27))###########################################
+    # plt.show()########################################
     kdtree = KDTree(np.vstack((tox, toy)).T)
 
     # a = np.array((1,2,3))
@@ -134,10 +138,10 @@ def calc_hybrid_astar_path(sx , sy , syaw , gx , gy , gyaw ,  ox , oy , xyreso ,
     nmotion = len(u)
 
     if vehicle_lib.check_collision(ox, oy, [sx], [sy], [syaw0], kdtree) == False:
-        print '1111111'
+        print('1111111')
         return []
     if vehicle_lib.check_collision(ox, oy, [gx], [gy], [gyaw0], kdtree) == False:
-        print '2222222'
+        print('2222222')
         return []
 
 
@@ -147,7 +151,7 @@ def calc_hybrid_astar_path(sx , sy , syaw , gx , gy , gyaw ,  ox , oy , xyreso ,
         # if times >100:
         #     return []
         if len(openset) == 0:
-            print "Error: Cannot find path, No open set"
+            print("Error: Cannot find path, No open set")
             return []
 
         c_id = min(
@@ -197,7 +201,7 @@ def calc_hybrid_astar_path(sx , sy , syaw , gx , gy , gyaw ,  ox , oy , xyreso ,
                     # If so, update the node to have a new parent
                     openset[node_ind] = node
             times = times + 1
-    print "final expand node:", len(openset) + len(closedset)
+    print("final expand node:", len(openset) + len(closedset))
     path = get_final_path(closedset, fnode, nstart, c)
     return path
 
@@ -244,7 +248,7 @@ def calc_index(node, c):
     ind += (yaw1ind - c.minyawt) *c.xw*c.yw*c.yaww
 
     if ind <= 0:
-        print "Error(calc_index):", ind
+        print("Error(calc_index):", ind)
     return ind
 
 def calc_cost(n, h_dp, ngoal, c):
@@ -466,7 +470,7 @@ def calc_index(node, c):
     #ind += (yaw1ind - c.minyawt) *c.xw*c.yw*c.yaww
 
     if ind <= 0:
-        print "Error(calc_index):", ind
+        print("Error(calc_index):", ind)
 
     return ind
 

@@ -145,9 +145,6 @@ def main(x,y,yaw):
 
     vehicle_x, vehicle_y = planner.vehicle.plot_trailer(mx, my, myaw0, 0.0, True)
     oox_add, ooy_add = add_obstacle(vehicle_x, vehicle_y, oox, ooy) # The add_obstacle function just adds the other car as obstacle
-    # plt.figure() #####################################################################
-    # plt.plot(oox_add, ooy_add, 'ro') #####################################################################
-    # plt.axis((-27, 27, -27, 27)) #####################################################################
     path2 = planner.calc_hybrid_astar_path(other_sx, other_sy, other_syaw0, other_gx, other_gy, other_gyaw0, oox_add,
                                            ooy_add,
                                            planner.XY_GRID_RESOLUTION,

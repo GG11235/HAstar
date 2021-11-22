@@ -69,4 +69,7 @@ def plot_trailer(x, y, yaw, steer, retrun_trailer = False):
         plt.plot(rl_wheel[0, :], rl_wheel[1, :], truckcolor)
         plt.plot(truckOutLine[0, :], truckOutLine[1, :], truckcolor)
     else:
-        return truckOutLine[0, :], truckOutLine[1, :]
+        # plt.figure("Car outline")
+        # plt.plot(truckOutLine[0, :], truckOutLine[1, :], 'bo')
+        # plt.show()
+        return truckOutLine[0, :], truckOutLine[1, :] # These are the four verteces of the car rectangle
