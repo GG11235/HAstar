@@ -7,7 +7,7 @@ import grid_a_star
 from scipy import spatial
 import math
 import Queue
-from sklearn import neighbors
+#from sklearn import neighbors
 import scipy.spatial
 import matplotlib.pyplot as plt
 
@@ -78,7 +78,7 @@ class Config(object):
         self.yawreso = yawreso
 
     def prn_obj(obj):
-        print '\n'.join(['%s:%s' % item for item in obj.__dict__.items()])
+        print('\n'.join(['%s:%s' % item for item in obj.__dict__.items()]))
 
 class Path(object):
 
@@ -212,7 +212,7 @@ def calc_config(ox, oy, xyreso, yawreso):
     oy.append(min_y_m)
     ox.append(max_x_m)
     oy.append(max_y_m)
-
+    
     minx = round(min_x_m/xyreso)
     miny = round(min_y_m/xyreso)
     maxx = round(max_x_m/xyreso)

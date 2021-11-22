@@ -55,9 +55,11 @@ for i in range(4, 9):
     ox.append(25)
     oy.append(i)
 
+
 plt.grid(True)
 plt.axis("equal")
 plt.plot(ox,oy,'.k')
+#plt.show()##########################################################
 vehicle.plot_trailer(SX, SY, SYAW, 0)
 vehicle.plot_trailer(OTHER_SX, OTHER_SY, OTHER_SYAW, 0)
 plt.pause(3)
@@ -142,20 +144,23 @@ def main(x,y,yaw):
     # path generation
 
     vehicle_x, vehicle_y = planner.vehicle.plot_trailer(mx, my, myaw0, 0.0, True)
-    oox_add, ooy_add = add_obstacle(vehicle_x, vehicle_y, oox, ooy)
+    oox_add, ooy_add = add_obstacle(vehicle_x, vehicle_y, oox, ooy) # The add_obstacle function just adds the other car as obstacle
+    # plt.figure() #####################################################################
+    # plt.plot(oox_add, ooy_add, 'ro') #####################################################################
+    # plt.axis((-27, 27, -27, 27)) #####################################################################
     path2 = planner.calc_hybrid_astar_path(other_sx, other_sy, other_syaw0, other_gx, other_gy, other_gyaw0, oox_add,
                                            ooy_add,
                                            planner.XY_GRID_RESOLUTION,
                                            planner.YAW_GRID_RESOLUTION)
     if path2 == []:
-        print 'The middle state is invalid(2)'
+        print("The middle state is invalid(2)")
         return
 
     path1 = planner.calc_hybrid_astar_path(sx, sy, syaw0, mx, my, myaw0, oox, ooy,
                                             planner.XY_GRID_RESOLUTION,
                                             planner.YAW_GRID_RESOLUTION)
     if path1 == []:
-        print 'Cannot find path.(1)'
+        print('Cannot find path.(1)')
         return
 
 
@@ -164,7 +169,7 @@ def main(x,y,yaw):
                                           planner.YAW_GRID_RESOLUTION)
 
     if path3 == []:
-        print 'Cannot find path.(3)'
+        print('Cannot find path.(3)')
         return
 
 
@@ -263,9 +268,12 @@ for x in range(-6,4,2):
             yield_y.append(y)
             yield_yaw.append(yaw)
 
+#plt.figure()##########################################
+# plt.plot(yield_x, yield_y)#######################################
+# plt.show()#################################################
 states_set = {}
 s_id = 0
-print len(yield_x)
+print(len(yield_x))
 for mx,my,myaw in zip(yield_x, yield_y, yield_yaw):
     oox, ooy = ox[:],oy[:]
     states = States(SX, SY, SYAW, mx, my, np.deg2rad(myaw), GX, GY, GYAW, ox, oy)
@@ -278,7 +286,7 @@ for i in range(len(states_set)):
         states_set, key=lambda o: states_set[o].estimated_cost)
     states = states_set[s_id]
     del states_set[s_id]
-    print 'mx:', states.mx, 'my:', states.my, 'myaw:', states.myaw, 'cost:', states.estimated_cost
+    print('mx:', states.mx, 'my:', states.my, 'myaw:', states.myaw, 'cost:', states.estimated_cost)
     # vehicle.plot_trailer(SX, SY, SYAW, 0)
     # vehicle.plot_trailer(OTHER_SX, OTHER_SY, OTHER_SYAW, 0)
     #plt.cla()
